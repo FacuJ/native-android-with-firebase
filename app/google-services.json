@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "302502542786",
+    "project_id": "mobiletasknativeandroid",
+    "storage_bucket": "mobiletasknativeandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302502542786:android:2c00e376f8090d16ec2a5b",
+        "android_client_info": {
+          "package_name": "com.facundojaton.mobilenativefirebasetask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302502542786-u23vur7lnnd4blp7eks0ioqthue7clgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.facundojaton.mobilenativefirebasetask",
+            "certificate_hash": "b46d9c84a7927d88a264e90c5929bbb425841895"
+          }
+        },
+        {
+          "client_id": "302502542786-53i8j6jaggpegad5j8gesq26rqqpd8se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUbTZzfdnLOuU3m7hrrSMQ3bCDNoSdFTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302502542786-53i8j6jaggpegad5j8gesq26rqqpd8se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
