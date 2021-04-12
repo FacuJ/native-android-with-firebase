@@ -1,4 +1,4 @@
-package com.facundojaton.mobilenativefirebasetask.ui.main.list
+package com.facundojaton.mobilenativefirebasetask.ui.list
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

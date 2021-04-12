@@ -1,4 +1,4 @@
-package com.facundojaton.mobilenativefirebasetask.ui.main.welcome
+package com.facundojaton.mobilenativefirebasetask.ui.welcome
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

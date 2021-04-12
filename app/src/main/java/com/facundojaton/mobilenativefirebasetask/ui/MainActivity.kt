@@ -1,4 +1,4 @@
-package com.facundojaton.mobilenativefirebasetask.ui.main
+package com.facundojaton.mobilenativefirebasetask.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -3,21 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginActivity">
+    app:startDestination="@id/loginFragment">
 
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.facundojaton.mobilenativefirebasetask.ui.login.LoginActivity"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
-    <activity
-        android:id="@+id/registerActivity"
-        android:name="com.facundojaton.mobilenativefirebasetask.ui.register.RegisterActivity"
-        android:label="activity_register"
-        tools:layout="@layout/activity_register" />
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.facundojaton.mobilenativefirebasetask.ui.main.welcome.WelcomeFragment"
+        android:name="com.facundojaton.mobilenativefirebasetask.ui.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -26,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.facundojaton.mobilenativefirebasetask.ui.main.list.ListFragment"
+        android:name="com.facundojaton.mobilenativefirebasetask.ui.list.ListFragment"
         android:label="list_fragment"
         tools:layout="@layout/list_fragment" >
         <action
@@ -35,7 +25,28 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.facundojaton.mobilenativefirebasetask.ui.main.profile.ProfileFragment"
+        android:name="com.facundojaton.mobilenativefirebasetask.ui.profile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.facundojaton.mobilenativefirebasetask.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.facundojaton.mobilenativefirebasetask.ui.register.RegisterFragment"
+        android:label="register_fragment"
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 </navigation>
