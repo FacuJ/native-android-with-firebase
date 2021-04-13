@@ -21,13 +21,15 @@
         tools:layout="@layout/list_fragment" >
         <action
             android:id="@+id/action_listFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.facundojaton.mobilenativefirebasetask.ui.profile.ProfileFragment"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.facundojaton.mobilenativefirebasetask.ui.login.LoginFragment"
@@ -36,6 +38,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -45,8 +50,5 @@
         <action
             android:id="@+id/action_registerFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_listFragment"
-            app:destination="@id/listFragment" />
     </fragment>
 </navigation>
