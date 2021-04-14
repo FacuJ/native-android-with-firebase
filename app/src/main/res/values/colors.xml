@@ -12,4 +12,5 @@
     <color name="scopic_red">#f55f68</color>
     <color name="scopic_red_text">#f56773</color>
     <color name="scopic_orange">#f56c40</color>
+    <color name="transparent">#00000000</color>
 </resources>

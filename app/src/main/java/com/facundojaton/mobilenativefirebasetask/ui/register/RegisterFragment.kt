@@ -1,6 +1,8 @@
 package com.facundojaton.mobilenativefirebasetask.ui.register
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.facundojaton.mobilenativefirebasetask.R
 import com.facundojaton.mobilenativefirebasetask.databinding.RegisterFragmentBinding
+import com.facundojaton.mobilenativefirebasetask.utils.hideKeyboard
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -43,6 +47,11 @@ class RegisterFragment : Fragment() {
             this.findNavController().popBackStack()
         }
 
+        binding.btnSignUp.setOnClickListener {
+            hideKeyboard()
+            registerViewModel.signUp()
+        }
+
         registerViewModel.registerResult.observe(viewLifecycleOwner, {
             when (it) {
                 RegisterViewModel.RegisterResult.SUCCESS -> {
@@ -51,6 +60,7 @@ class RegisterFragment : Fragment() {
                         .navigate(RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment())
                 }
                 RegisterViewModel.RegisterResult.FAILED -> {
+                    registerViewModel.showSnackBar()
                     hideWaitingMode()
                 }
                 RegisterViewModel.RegisterResult.WAITING -> {
@@ -61,6 +71,38 @@ class RegisterFragment : Fragment() {
                 }
             }
         })
+
+        registerViewModel.seePassword.observe(viewLifecycleOwner, {
+            if (it) {
+                showPassword()
+            } else {
+                hidePassword()
+            }
+        })
+
+        registerViewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.error_on_register_check_email_and_password),
+                    Snackbar.LENGTH_LONG
+                ).show()
+                registerViewModel.doneShowingSnackBar()
+            }
+        })
+    }
+
+    private fun hidePassword() {
+        binding.ivEyePassword.setImageResource(R.drawable.ic_eye_disabled)
+        binding.etPassword.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        binding.etPassword.typeface = Typeface.DEFAULT
+    }
+
+    private fun showPassword() {
+        binding.ivEyePassword.setImageResource(R.drawable.ic_eye_enabled)
+        binding.etPassword.inputType = InputType.TYPE_CLASS_TEXT
+
     }
 
     private fun hideWaitingMode() {

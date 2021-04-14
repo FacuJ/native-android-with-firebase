@@ -76,6 +76,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password_label" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/iv_eye_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:onClick="@{()-> viewModel.togglePasswordVisibility()}"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_eye_disabled"
+            app:layout_constraintBottom_toBottomOf="@id/et_password"
+            app:layout_constraintEnd_toEndOf="@id/et_password"
+            app:layout_constraintTop_toTopOf="@id/et_password" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
             style="@style/BtnSolidRed"
@@ -86,7 +98,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="64dp"
-            android:onClick="@{() -> viewModel.signUp()}"
             android:text="@string/sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

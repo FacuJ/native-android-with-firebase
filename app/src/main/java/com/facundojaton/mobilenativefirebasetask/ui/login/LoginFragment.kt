@@ -1,7 +1,8 @@
 package com.facundojaton.mobilenativefirebasetask.ui.login
 
+import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.facundojaton.mobilenativefirebasetask.R
-import com.facundojaton.mobilenativefirebasetask.controllers.SessionController
 import com.facundojaton.mobilenativefirebasetask.databinding.FragmentLoginBinding
+import com.facundojaton.mobilenativefirebasetask.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
@@ -45,6 +46,11 @@ class LoginFragment : Fragment() {
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
 
+        binding.btnSignIn.setOnClickListener {
+            hideKeyboard()
+            loginViewModel.login()
+        }
+
         loginViewModel.loginResult.observe(viewLifecycleOwner, {
             when (it) {
                 LoginViewModel.LoginResult.SUCCESS -> {
@@ -62,17 +68,24 @@ class LoginFragment : Fragment() {
                 }
             }
         })
+        loginViewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.error_on_login_check_email_and_password),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                loginViewModel.doneShowingSnackBar()
+            }
+        })
 
-            loginViewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
-                if (it == true) {
-                        Snackbar.make(
-                            requireActivity().findViewById(android.R.id.content),
-                            getString(R.string.error_on_login_check_email_and_password),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    loginViewModel.doneShowingSnackBar()
-                }
-            })
+        loginViewModel.seePassword.observe(viewLifecycleOwner, {
+            if (it) {
+                showPassword()
+            } else {
+                hidePassword()
+            }
+        })
     }
 
     private fun hideWaitingMode() {
@@ -89,6 +102,19 @@ class LoginFragment : Fragment() {
             btnSignIn.isEnabled = false
             btnSignUp.isEnabled = false
         }
+    }
+
+    private fun hidePassword() {
+        binding.ivEyePassword.setImageResource(R.drawable.ic_eye_disabled)
+        binding.etPassword.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        binding.etPassword.typeface = Typeface.DEFAULT
+    }
+
+    private fun showPassword() {
+        binding.ivEyePassword.setImageResource(R.drawable.ic_eye_enabled)
+        binding.etPassword.inputType = InputType.TYPE_CLASS_TEXT
+
     }
 
     private fun goToList() {

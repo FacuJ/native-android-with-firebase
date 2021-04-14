@@ -1,6 +1,5 @@
 package com.facundojaton.mobilenativefirebasetask.ui.register
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,8 +29,16 @@ class RegisterViewModel : ViewModel() {
     val registerResult: LiveData<RegisterResult>
         get() = _registerResult
 
-    init {
+    private var _seePassword = MutableLiveData<Boolean>()
+    val seePassword: LiveData<Boolean>
+        get() = _seePassword
 
+    private var _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackBarEvent
+
+    init {
+        _seePassword.value = false
     }
 
     fun signUp() {
@@ -39,12 +46,10 @@ class RegisterViewModel : ViewModel() {
             _registerResult.value = RegisterResult.WAITING
             val result = signUpWithEmailAndPassword(userEmail.value, userPassword.value)
             if (result != null) {
-                Log.d("ACTIVITY", result.user.email)
                 SessionController.initializeSignInData()
                 _registerResult.value = RegisterResult.SUCCESS
             } else {
                 _registerResult.value = RegisterResult.FAILED
-                Log.e("ACTIVITY", "ERROR")
             }
         }
     }
@@ -77,8 +82,22 @@ class RegisterViewModel : ViewModel() {
         _registerResult.value = RegisterResult.DONE_NAVIGATING
     }
 
+    fun togglePasswordVisibility() {
+        _seePassword.value?.let {
+            _seePassword.value = !it
+        }
+    }
+
+    fun doneShowingSnackBar() {
+        _showSnackBarEvent.value = false
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun showSnackBar() {
+        _showSnackBarEvent.value = true
     }
 }

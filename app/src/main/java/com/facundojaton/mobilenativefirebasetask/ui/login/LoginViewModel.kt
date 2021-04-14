@@ -40,7 +40,12 @@ class LoginViewModel : ViewModel() {
     val showSnackBarEvent: LiveData<Boolean>
         get() = _showSnackBarEvent
 
+    private var _seePassword = MutableLiveData<Boolean>()
+    val seePassword: LiveData<Boolean>
+        get() = _seePassword
+
     init {
+        _seePassword.value = false
         checkSession()
     }
 
@@ -119,5 +124,11 @@ class LoginViewModel : ViewModel() {
 
     fun doneNavigatingToList() {
         _loginResult.value = LoginResult.DONE_NAVIGATING
+    }
+
+    fun togglePasswordVisibility() {
+        _seePassword.value?.let {
+            _seePassword.value = !it
+        }
     }
 }
