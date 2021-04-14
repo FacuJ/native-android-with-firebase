@@ -1,6 +1,7 @@
 package com.facundojaton.mobilenativefirebasetask.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.facundojaton.mobilenativefirebasetask.R
+import com.facundojaton.mobilenativefirebasetask.controllers.SessionController
 import com.facundojaton.mobilenativefirebasetask.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -46,6 +48,7 @@ class LoginFragment : Fragment() {
         loginViewModel.loginResult.observe(viewLifecycleOwner, {
             when (it) {
                 LoginViewModel.LoginResult.SUCCESS -> {
+                    loginViewModel.doneNavigatingToList()
                     goToList()
                 }
                 LoginViewModel.LoginResult.FAILED -> {

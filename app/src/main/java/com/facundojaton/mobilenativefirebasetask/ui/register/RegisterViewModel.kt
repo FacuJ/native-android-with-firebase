@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.facundojaton.mobilenativefirebasetask.controllers.SessionController
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
@@ -11,7 +12,7 @@ import kotlinx.coroutines.tasks.await
 
 class RegisterViewModel : ViewModel() {
     enum class RegisterResult {
-        SUCCESS, FAILED
+        SUCCESS, FAILED, WAITING, DONE_NAVIGATING
     }
 
     private val viewModelJob = Job()
@@ -29,11 +30,17 @@ class RegisterViewModel : ViewModel() {
     val registerResult: LiveData<RegisterResult>
         get() = _registerResult
 
+    init {
+
+    }
+
     fun signUp() {
         uiScope.launch {
+            _registerResult.value = RegisterResult.WAITING
             val result = signUpWithEmailAndPassword(userEmail.value, userPassword.value)
             if (result != null) {
                 Log.d("ACTIVITY", result.user.email)
+                SessionController.initializeSignInData()
                 _registerResult.value = RegisterResult.SUCCESS
             } else {
                 _registerResult.value = RegisterResult.FAILED
@@ -64,5 +71,14 @@ class RegisterViewModel : ViewModel() {
 
     fun changePasswordContent(password: String) {
         _userPassword.value = password
+    }
+
+    fun doneNavigatingToWelcomeScreen() {
+        _registerResult.value = RegisterResult.DONE_NAVIGATING
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }

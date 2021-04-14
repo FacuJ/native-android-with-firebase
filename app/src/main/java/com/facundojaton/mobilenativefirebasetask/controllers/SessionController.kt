@@ -1,10 +1,6 @@
 package com.facundojaton.mobilenativefirebasetask.controllers
 
-import androidx.lifecycle.map
-import com.facundojaton.mobilenativefirebasetask.data.FirebaseUserLiveData
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 
 object SessionController {
@@ -12,13 +8,23 @@ object SessionController {
         AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
     }
 
-    val authenticationState = FirebaseUserLiveData().map { user ->
-        if (user != null) {
-            AuthenticationState.AUTHENTICATED
-        } else {
-            AuthenticationState.UNAUTHENTICATED
-        }
+    var authenticationState = if (FirebaseAuth.getInstance().currentUser != null) {
+        AuthenticationState.AUTHENTICATED
+    } else AuthenticationState.UNAUTHENTICATED
+
+    var userEmail = FirebaseAuth.getInstance().currentUser?.email
+    var userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        authenticationState = AuthenticationState.UNAUTHENTICATED
+        userEmail = null
+        userId = null
     }
-    val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
-    var userEmail: String? = null
+
+    fun initializeSignInData() {
+        authenticationState = AuthenticationState.AUTHENTICATED
+        userEmail = FirebaseAuth.getInstance().currentUser?.email
+        userId = FirebaseAuth.getInstance().currentUser?.uid
+    }
 }

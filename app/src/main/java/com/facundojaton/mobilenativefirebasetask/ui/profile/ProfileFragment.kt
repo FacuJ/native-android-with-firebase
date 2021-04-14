@@ -30,6 +30,10 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = profileViewModel
 
+        binding.btnBack.setOnClickListener {
+            this.findNavController().popBackStack()
+        }
+
         profileViewModel.logOutResult.observe(viewLifecycleOwner, {
             when(it){
                 ProfileViewModel.LogOutResult.SUCCESS -> {

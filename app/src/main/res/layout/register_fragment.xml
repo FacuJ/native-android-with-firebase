@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".ui.register.RegisterFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
+            style="@style/TextTitle"
             android:text="@string/sign_up"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/email"
+            style="@style/EditTextLabel"
             app:layout_constraintStart_toStartOf="@id/tv_sign_up_title"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_title" />
 
@@ -53,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password"
+            style="@style/EditTextLabel"
             app:layout_constraintStart_toStartOf="@id/tv_email_label"
             app:layout_constraintTop_toBottomOf="@id/et_email" />
 
@@ -74,12 +78,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
-            android:layout_width="wrap_content"
+            style="@style/BtnSolidRed"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="64dp"
             android:onClick="@{() -> viewModel.signUp()}"
             android:text="@string/sign_up"
@@ -93,19 +98,27 @@
             android:id="@+id/tv_have_an_account_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
             android:text="@string/have_an_account_question"
+            android:textSize="18sp"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_sign_in"
-            app:layout_constraintEnd_toStartOf="@id/btn_sign_in"
+            app:layout_constraintStart_toStartOf="@+id/btn_sign_up"
             app:layout_constraintTop_toTopOf="@+id/btn_sign_in" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="@string/sign_in"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp"
+            style="@style/BtnSolidWhite"
+            app:layout_constraintEnd_toEndOf="@+id/btn_sign_up"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_have_an_account_question"
             app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />
 
         <ProgressBar

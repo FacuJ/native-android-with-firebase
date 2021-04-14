@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#EEEEEE</color>
+    <color name="gray">#BBBBBB</color>
+    <color name="scopic_red">#f55f68</color>
+    <color name="scopic_red_text">#f56773</color>
+    <color name="scopic_orange">#f56c40</color>
 </resources>

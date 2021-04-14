@@ -39,11 +39,43 @@ class RegisterFragment : Fragment() {
             registerViewModel.changePasswordContent(text.toString())
         }
 
+        binding.btnSignIn.setOnClickListener {
+            this.findNavController().popBackStack()
+        }
+
         registerViewModel.registerResult.observe(viewLifecycleOwner, {
-            if (it.equals(RegisterViewModel.RegisterResult.SUCCESS)) {
-                this.findNavController()
-                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment())
+            when (it) {
+                RegisterViewModel.RegisterResult.SUCCESS -> {
+                    registerViewModel.doneNavigatingToWelcomeScreen()
+                    this.findNavController()
+                        .navigate(RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment())
+                }
+                RegisterViewModel.RegisterResult.FAILED -> {
+                    hideWaitingMode()
+                }
+                RegisterViewModel.RegisterResult.WAITING -> {
+                    showWaitingMode()
+                }
+                else -> {
+                    hideWaitingMode()
+                }
             }
         })
+    }
+
+    private fun hideWaitingMode() {
+        binding.apply {
+            pbRegister.visibility = View.GONE
+            btnSignIn.isEnabled = true
+            btnSignUp.isEnabled = true
+        }
+    }
+
+    private fun showWaitingMode() {
+        binding.apply {
+            pbRegister.visibility = View.VISIBLE
+            btnSignIn.isEnabled = false
+            btnSignUp.isEnabled = false
+        }
     }
 }

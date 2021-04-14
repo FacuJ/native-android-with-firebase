@@ -1,5 +1,6 @@
 package com.facundojaton.mobilenativefirebasetask.ui.list
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.facundojaton.mobilenativefirebasetask.R
 import com.facundojaton.mobilenativefirebasetask.SwipeToDelete
 import com.facundojaton.mobilenativefirebasetask.adapters.ItemsListAdapter
+import com.facundojaton.mobilenativefirebasetask.controllers.SessionController
 import com.facundojaton.mobilenativefirebasetask.databinding.CustomDialogAddItemBinding
 import com.facundojaton.mobilenativefirebasetask.databinding.ListFragmentBinding
 
@@ -41,7 +43,19 @@ class ListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.rvList)
 
         binding.btnBack.setOnClickListener {
-            //ToDo back
+            AlertDialog.Builder(context)
+                .setTitle(R.string.logout_dialog_title)
+                .setMessage(R.string.logout_dialog_message)
+                .setPositiveButton(R.string.yes) { dialog, _ ->
+                    SessionController.logout()
+                    this.findNavController()
+                        .navigate(ListFragmentDirections.actionListFragmentToLoginFragment())
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.no) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         binding.btnProfile.setOnClickListener {
