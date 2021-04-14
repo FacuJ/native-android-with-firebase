@@ -5,14 +5,17 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.facundojaton.mobilenativefirebasetask.controllers.SessionController
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class LoginViewModel : ViewModel() {
     enum class LoginResult {
-        SUCCESS, FAILED
+        SUCCESS, FAILED, WAITING
     }
 
     private val viewModelJob = Job()
@@ -31,15 +34,27 @@ class LoginViewModel : ViewModel() {
     val loginResult: LiveData<LoginResult>
         get() = _loginResult
 
+    private var _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    private var _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackBarEvent
+
+
     fun login() {
         uiScope.launch {
+            _loginResult.value = LoginResult.WAITING
             val result = signInWithEmailAndPassword(userEmail.value, userPassword.value)
             if (result != null) {
                 _loginResult.value = LoginResult.SUCCESS
+                SessionController.userEmail = result.user.email
                 Log.d("ACTIVITY", result.user.email)
             } else {
                 Log.e("ACTIVITY", "ERROR")
                 _loginResult.value = LoginResult.FAILED
+                showError()
             }
 
         }
@@ -81,8 +96,16 @@ class LoginViewModel : ViewModel() {
         _userPassword.value = password
     }
 
+    private fun showError() {
+        _showSnackBarEvent.value = true
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun doneShowingSnackBar() {
+        _showSnackBarEvent.value = false
     }
 }

@@ -22,4 +22,5 @@
     <string name="add">Add</string>
     <string name="log_out">Log Out</string>
     <string name="content">Content</string>
+    <string name="error_on_login_check_email_and_password">Error on login. Check your e-mail and password</string>
 </resources>

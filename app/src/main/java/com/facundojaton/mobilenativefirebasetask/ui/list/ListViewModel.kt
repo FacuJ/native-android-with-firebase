@@ -109,12 +109,21 @@ class ListViewModel : ViewModel() {
         _itemsList.value = items
     }
 
-    private fun onGroupMessageChildMoved(item: DatabaseItem?) {
-        //item?.let { _itemsList.value?.add(it) }
+    private fun onGroupMessageChildMoved(databaseItem: DatabaseItem?) {
+        var position = -1
+        items.forEachIndexed { index, item ->
+            if (item.id == databaseItem?.id) {
+                position = index
+            }
+        }
+        if (position != -1 && databaseItem != null) {
+            items[position] = databaseItem
+        }
+        updateDataSet()
     }
 
     private fun onGroupMessageChildChanged(item: DatabaseItem?) {
-        //ToDo update items
+        onGroupMessageChildMoved(item)
     }
 
     fun setCharCount(count: Int) {

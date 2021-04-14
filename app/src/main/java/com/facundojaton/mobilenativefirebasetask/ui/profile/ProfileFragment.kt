@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.facundojaton.mobilenativefirebasetask.R
 import com.facundojaton.mobilenativefirebasetask.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
     private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
@@ -25,8 +26,24 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        // TODO: Use the ViewModel
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.viewModel = profileViewModel
+
+        profileViewModel.logOutResult.observe(viewLifecycleOwner, {
+            when(it){
+                ProfileViewModel.LogOutResult.SUCCESS -> {
+                    goToLogin()
+                }
+                ProfileViewModel.LogOutResult.WAITING -> {
+                }
+            }
+        })
+
+    }
+
+    private fun goToLogin() {
+        this.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
     }
 
 }

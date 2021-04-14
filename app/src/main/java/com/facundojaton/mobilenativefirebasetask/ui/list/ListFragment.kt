@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.facundojaton.mobilenativefirebasetask.R
 import com.facundojaton.mobilenativefirebasetask.SwipeToDelete
@@ -43,6 +44,11 @@ class ListFragment : Fragment() {
             //ToDo back
         }
 
+        binding.btnProfile.setOnClickListener {
+            this.findNavController()
+                .navigate(ListFragmentDirections.actionListFragmentToProfileFragment())
+        }
+
         listViewModel.itemsList.observe(viewLifecycleOwner, {
             listAdapter.setListItems(it)
         })
@@ -51,7 +57,7 @@ class ListFragment : Fragment() {
             showAddItemDialog()
         }
 
-        listAdapter.onItemSwipe = { databaseItem->
+        listAdapter.onItemSwipe = { databaseItem ->
             listViewModel.deleteItem(databaseItem)
         }
     }
