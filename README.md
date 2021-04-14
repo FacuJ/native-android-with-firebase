@@ -1,5 +1,5 @@
 # NativeAndroidTask
- Native Android app with Kotlin and Firebase. Uses Authentication, Realtime Database & CloudFunctions
+ Native Android app with Kotlin and Firebase. Uses Authentication, Realtime Database & CloudFunctions. Implemented with a ModelView-ViewModel (MVVM) pattern.
  
  ## Features and goals
  
