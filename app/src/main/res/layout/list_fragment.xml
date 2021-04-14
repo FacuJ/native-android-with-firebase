@@ -58,9 +58,10 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:itemCount="8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sw_list_source"
-            tools:listitem="@tools:sample/first_names" />
+            tools:listitem="@layout/layout_list_item" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_list_item"

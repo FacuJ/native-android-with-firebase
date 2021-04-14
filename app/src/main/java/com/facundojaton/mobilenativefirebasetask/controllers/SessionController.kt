@@ -2,6 +2,8 @@ package com.facundojaton.mobilenativefirebasetask.controllers
 
 import androidx.lifecycle.map
 import com.facundojaton.mobilenativefirebasetask.data.FirebaseUserLiveData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 object SessionController {
@@ -16,4 +18,5 @@ object SessionController {
             AuthenticationState.UNAUTHENTICATED
         }
     }
+    val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
 }
