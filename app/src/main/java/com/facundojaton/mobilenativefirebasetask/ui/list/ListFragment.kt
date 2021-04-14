@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -102,7 +103,15 @@ class ListFragment : Fragment() {
                         ListViewModel.PushResult.SUCCESS -> {
                             dismiss()
                         }
-                        //ToDo: handle error messages
+                        ListViewModel.PushResult.FAILED -> {
+                            showErrorToast()
+                            dialogBinding.btnCancel.isEnabled = true
+                            dialogBinding.btnConfirm.isEnabled = true
+                        }
+                        ListViewModel.PushResult.WAITING -> {
+                            dialogBinding.btnCancel.isEnabled = false
+                            dialogBinding.btnConfirm.isEnabled = false
+                        }
                     }
                 })
                 dialogBinding.btnCancel.setOnClickListener {
@@ -114,6 +123,10 @@ class ListFragment : Fragment() {
                 show()
             }
         }
+    }
+
+    private fun showErrorToast() {
+        Toast.makeText(activity, R.string.error_writing_on_the_database, Toast.LENGTH_SHORT).show()
     }
 
 

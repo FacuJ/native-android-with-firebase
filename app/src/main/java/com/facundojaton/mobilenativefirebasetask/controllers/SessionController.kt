@@ -2,10 +2,12 @@ package com.facundojaton.mobilenativefirebasetask.controllers
 
 import com.google.firebase.auth.FirebaseAuth
 
-
+/**
+ * Controller that handles the Firebase Session and retrieves data from FirebaseAuth
+ */
 object SessionController {
     enum class AuthenticationState {
-        AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
+        AUTHENTICATED, UNAUTHENTICATED
     }
 
     var authenticationState = if (FirebaseAuth.getInstance().currentUser != null) {

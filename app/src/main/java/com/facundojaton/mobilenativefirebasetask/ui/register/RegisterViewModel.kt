@@ -18,11 +18,11 @@ class RegisterViewModel : ViewModel() {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var _userEmail = MutableLiveData<String>()
-    val userEmail: LiveData<String>
+    private val userEmail: LiveData<String>
         get() = _userEmail
 
     private var _userPassword = MutableLiveData<String>()
-    val userPassword: LiveData<String>
+    private val userPassword: LiveData<String>
         get() = _userPassword
 
     private var _registerResult = MutableLiveData<RegisterResult>()

@@ -28,4 +28,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="error_on_register_check_email_and_password">Error on register. Check if mail is properly formatted, already in use or password is shorter than 6 characters</string>
+    <string name="error_writing_on_the_database">Error writing on the database, try again later.</string>
 </resources>

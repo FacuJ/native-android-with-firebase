@@ -9,9 +9,7 @@ class SwipeToDelete(var adapter: ItemsListAdapter): ItemTouchHelper.SimpleCallba
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
-    ): Boolean {
-        TODO("Not yet implemented")
-    }
+    ): Boolean { return false }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val itemPosition = viewHolder.bindingAdapterPosition

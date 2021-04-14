@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facundojaton.mobilenativefirebasetask.data.model.DatabaseItem
 import com.facundojaton.mobilenativefirebasetask.databinding.LayoutListItemBinding
 
-
+/**
+ * Adapter for items on the ListFragment
+ */
 class ItemsListAdapter : RecyclerView.Adapter<ItemsListAdapter.ListItemViewHolder>() {
 
     var onItemSwipe: (itemId: String) -> Unit = { }
     private var items: ArrayList<DatabaseItem> = ArrayList()
-    var waiting = false
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,13 +25,6 @@ class ItemsListAdapter : RecyclerView.Adapter<ItemsListAdapter.ListItemViewHolde
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         val item = items[holder.bindingAdapterPosition]
         holder.bind(item)
-/*
-        holder.binding..setOnClickListener {
-            if(!waiting) onItemClicked(item.id)
-        }
-
-
- */
     }
 
     fun setListItems(list: MutableList<DatabaseItem>?) {
@@ -61,8 +55,6 @@ class ItemsListAdapter : RecyclerView.Adapter<ItemsListAdapter.ListItemViewHolde
 
     fun deleteItem(position: Int){
         onItemSwipe(items[position].id)
-        /*items.removeAt(position)
-        notifyItemRemoved(position)*/
     }
 
     override fun getItemCount(): Int = items.size

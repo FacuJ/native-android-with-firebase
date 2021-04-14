@@ -53,7 +53,6 @@ class ListViewModel : ViewModel() {
     }
 
     private fun setListenerOnItems() {
-        //ToDo: Check nullability
         reference?.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
 
@@ -136,11 +135,9 @@ class ListViewModel : ViewModel() {
                 _pushResult.value = PushResult.WAITING
                 val result = setNewItemOnDatabase(uid, text)
                 if (result) {
-                    Log.d("ACTIVITY", "Success writing")
                     _pushResult.value = PushResult.SUCCESS
                 } else {
                     _pushResult.value = PushResult.FAILED
-                    Log.e("ACTIVITY", "ERROR")
                 }
             }
         }
@@ -150,7 +147,6 @@ class ListViewModel : ViewModel() {
         return withContext(Dispatchers.IO) {
             try {
                 val ref = FBDatabaseController.pushItem(userId)
-                //ToDo: check nullability
                 val newItem = DatabaseItem(ref.key!!, text)
                 ref.setValue(newItem).await()
                 true
@@ -172,11 +168,9 @@ class ListViewModel : ViewModel() {
                 _deleteResult.value = DeleteResult.WAITING
                 val result = deleteItemOnDatabase(uid, databaseItemId)
                 if (result) {
-                    Log.d("ACTIVITY", "Success deleting")
                     _deleteResult.value = DeleteResult.SUCCESS
                 } else {
                     _deleteResult.value = DeleteResult.FAILED
-                    Log.e("ACTIVITY", "ERROR")
                 }
             }
         }

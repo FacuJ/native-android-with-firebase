@@ -21,11 +21,11 @@ class LoginViewModel : ViewModel() {
 
 
     private val _userEmail = MutableLiveData<String>()
-    val userEmail: LiveData<String>
+    private val userEmail: LiveData<String>
         get() = _userEmail
 
     private val _userPassword = MutableLiveData<String>()
-    val userPassword: LiveData<String>
+    private val userPassword: LiveData<String>
         get() = _userPassword
 
     private val _loginResult = MutableLiveData<LoginResult>()
@@ -63,9 +63,7 @@ class LoginViewModel : ViewModel() {
             if (result != null) {
                 SessionController.initializeSignInData()
                 _loginResult.value = LoginResult.SUCCESS
-                Log.d("ACTIVITY", SessionController.userEmail.toString())
             } else {
-                Log.e("ACTIVITY", "ERROR")
                 _loginResult.value = LoginResult.FAILED
                 showError()
             }
@@ -73,6 +71,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private suspend fun signInWithEmailAndPassword(
         email: String?,
         password: String?
@@ -87,18 +86,6 @@ class LoginViewModel : ViewModel() {
                 null
             }
         }
-    }
-
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
     }
 
     fun changeEmailContent(emailContent: String) {
